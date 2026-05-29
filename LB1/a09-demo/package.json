@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
- "scripts": {
-    "start": "node src/server.js",
-    "dev": "nodemon src/server.js",
+  "scripts": {
     "start:insecure": "node src/server-insecure.js",
-    "start:secure": "node src/server-secure.js"
+    "start:secure": "node src/server-secure.js",
+    "dev:insecure": "nodemon src/server-insecure.js",
+    "dev:secure": "nodemon src/server-secure.js"
   },
   "keywords": [],
   "author": "",
