@@ -85,3 +85,23 @@ runcmd:
 - Nennen Sie mindestens zwei technische Massnahmen, mit denen die Webapplikation diesen Angriff verhindert hätte.
 - Using HttpOnly cookies would have prevented this attack, since the malicious script would not have been able to access the cookie value. Also Encoding the output properly would have prevented the attack, since the script would not have been executed in the first place.
 - Was bewirkt das Secure-Flag bei einem Cookie, und in welcher Situation schützt es?
+### C) Reflected XSS in Gruyere
+- note UID (User ID) 
+- go through each Gruyere page and check for vulnerabilities, especially in the URL parameters, query parameters in GET requests.
+- test vulnerabilities by changing requests parameter values and check response. ![img_19.png](img_19.png)![img_20.png](img_20.png)
+- I changed the url params witha script → `https://google-gruyere.appspot.com/642425022017211101813793055985579386653/<img src=x onerror=alert('Reflected_XSS')>` and it worked :O ![img_21.png](img_21.png) ![img_22.png](img_22.png)
+- Q&A
+- Was ist der Hauptunterschied zwischen Stored XSS und Reflected XSS hinsichtlich Persistenz und Reichweite? (Antwort aus Schritt 3 ableiten)
+- Stored XSS is persistent and can affect multiple users, while Reflected XSS is non-persistent and typically affects only the user who clicks on the vulnerable link.
+- Wie würde ein Angreifer in der Praxis vorgehen, um das Opfer dazu zu bringen, den manipulierten Link zu öffnen? (Social Engineering)
+- pishing emails, documents, links online etc... (usually with a URL shortener to hide the malicious URL)
+- Welcher OWASP Proactive Control schützt am direktesten gegen XSS? Nennen Sie ihn mit Nummer und Titel. (Referenz: owasp.org/www-project-proactive-controls)
+- [OWASP ASVS: V5 Input Validation and Encoding](https://owasp.org/www-project-application-security-verification-standard/)
+### D) Client-State Manipulation in Gruyere
+- cahnge user type in cookie to admin: `45075654|verteidiger-zak||admin` ![img_23.png](img_23.png)
+- Q&A
+- Warum ist es gefährlich, sicherheitsrelevante Daten (wie Rollen oder Berechtigungen) im Client (Cookie/LocalStorage) zu speichern?
+- if you only rely on client-side data for security and authorization, an attacker can easily manipulate this data to gain unauthorized access.
+- Wo sollten Berechtigungsprüfungen stattfinden – im Client oder auf dem Server? Begründen Sie.
+- Authorization checks should always take place on the server, because the client can be easily manipulated by an attacker. 
+- Welche OWASP Top 10 Kategorie (2025) beschreibt dieses Problem? [A01:2025 Broken Access Control](https://owasp.org/Top10/2025/A01_2025-Broken_Access_Control/)
