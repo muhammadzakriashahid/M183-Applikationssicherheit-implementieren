@@ -11,7 +11,7 @@ Lernziele
 ### A) Gruyere starten und Accounts erstellen (20%)
 - UID: 545404200497371604692871509509367347540 ![img_2.png](imgs/img_2.png)
 - Users
-    - angreifer-zakria: gugus1 ![img.png](img.png)
+    - angreifer-zakria: gugus1 ![img.png](imgs/img.png)
     - verteidiger-zak: gugus2 ![img_1.png](imgs/img_1.png)
 ### B) Stored XSS in Gruyere
 #### B1 – DOM-Manipulation als Proof of Concept
