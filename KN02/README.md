@@ -38,3 +38,21 @@ Lernziele
 ### C) Cross-Site Scripting (XSS) (18%)
 #### C1 – Reflected XSS & DOM-based XSS
 ##### C1a – Try It! Reflected XSS
+- I had to test the input field, to check if they were vulnerable to XSS, I tried to inject a simple script `<script>alert('XSS')</script>` and it worked, the alert popped up. ![img_5.png](img_5.png)
+##### C1b – Identify potential for DOM-Based XSS
+- Now i had to find a potential for DOM-Based XSS, which was finding a test route that stayed in the app during production. ![img_6.png](img_6.png)
+- Thne I had to use that exploit, since the app was vulnerable to XSS, I could inject a script in the URL, which would be executed when the page was loaded. ![img_7.png](img_7.png) ![img_8.png](img_8.png)
+#### C2 – Stored XSS
+- Here the first task was to paste a script in the input field for the post comments `<script>alert('Stored XSS')</script>`. ![img_9.png](img_9.png). The goal was to check if the script was called when the page was loaded. ![img_10.png](img_10.png)
+- Q&A
+- Was ist der zentrale Unterschied zwischen Reflected XSS und Stored XSS hinsichtlich Persistenz und Reichweite? 
+- Reflected XSS is not persistent, it only affects the user who clicks on the malicious link, while Stored XSS is persistent, it affects all users who visit the page where the malicious script is stored.
+- Was unterscheidet DOM-based XSS von Reflected XSS – warum ist DOM-based XSS für serverseitige Filter schwieriger zu erkennen?
+- DOM-based XSS is executed on the client side, which means that the malicious script is executed in the user's browser, not on the server. This makes it harder for server-side filters to detect and prevent it, as the malicious code is not sent to the server for processing.
+- Was bedeutet Output Encoding und warum schützt es gegen XSS? Geben Sie ein konkretes Beispiel, wie <script> nach dem Encoding aussieht.
+- Output Encoding is the process of converting special characters in [html entity](https://www.w3schools.com/html/html_entities.asp). For example, `<script>` becomes `&lt;script&gt;`. This prevents the browser from interpreting the characters as HTML or JavaScript, thus protecting against XSS attacks.
+- Was ist der HTTP-Header Content-Security-Policy (CSP) und wie schränkt er XSS ein? (Recherchieren Sie falls nötig.)
+- [Content-Security-Policy (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP) is a security feature that allows web developers to control the resources that a web page can load. For example, a CSP header might specify that only scripts from the same origin or specific trusted domains can be executed, thus mitigating the risk of XSS.
+- Welche OWASP Top 10 Kategorie (2021) beschreibt XSS? Nennen Sie Nummer und Bezeichnung.
+- [A05:2025 Injection](https://owasp.org/Top10/2025/A05_2025-Injection/#:~:text=CWE%2D80%20Improper%20Neutralization%20of%20Script%2DRelated%20HTML%20Tags%20in%20a%20Web%20Page%20(Basic%20XSS)
+### D) CSRF – Cross-Site Request Forgery (18%)
