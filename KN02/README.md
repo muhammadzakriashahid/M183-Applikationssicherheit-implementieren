@@ -1,4 +1,4 @@
-# KN-Webgoat-01: OWASP Top 10 – WebGoat
+# KN-Webgoat-02: OWASP Top 10 – WebGoat
 Lernziele
 - Sie können SQL-Injection-Angriffe durchführen und die Gegenmassnahme (Prepared Statements) erklären.
 - Sie können Reflected und Stored XSS in einer Webapplikation ausnutzen und den Unterschied erklären.
