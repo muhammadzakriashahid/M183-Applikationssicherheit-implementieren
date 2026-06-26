@@ -8,10 +8,10 @@ Lernziele
 - Sie können zu jeder Schwachstelle die passende OWASP Top 10 Kategorie benennen.
 ***
 ### A) WebGoat starten (Pflicht, zuerst lösen) (10%)
-- Edit inbound rules and add a new rule to allow TCP port 8080 (WebGoat) ![img.png](img.png)
+- Edit inbound rules and add a new rule to allow TCP port 8080 (WebGoat) ![img.png](imgs/img.png)
 - Start WebGoat in the EC2 instance in docker: `docker run -d --name webgoat -p 8080:8080 webgoat/webgoat` 
-- Check if WebGoat is running: `docker ps`and visit `http://<EC2-Public-IP>:8080/WebGoat` in your browser. ![img_1.png](img_1.png)
-- Create new User → `zakria:gugus_` ![img_2.png](img_2.png)
+- Check if WebGoat is running: `docker ps`and visit `http://<EC2-Public-IP>:8080/WebGoat` in your browser. ![img_1.png](imgs/img_1.png)
+- Create new User → `zakria:gugus_` ![img_2.png](imgs/img_2.png)
 ### B) SQL Injection (18%)
 #### B1 – Login Bypass
 - go to through the A3 SQL Injection lesson in WebGoat until the login bypass task.
@@ -21,10 +21,10 @@ Lernziele
   - 5: `GRANT ALL ON grant_rights TO unauthorized_user`
   - 9: `SMITH' or '1'='1`
   - 10: `1` & `1 OR 1=1`
-- use name in first form field, and this payload `' OR '1'='1` in the second form field. ![img_3.png](img_3.png)
+- use name in first form field, and this payload `' OR '1'='1` in the second form field. ![img_3.png](imgs/img_3.png)
 #### B2 – Query Chaining: Integrität kompromittieren
 - do the 12th (Compromising Integrity with Query chaining) task in the A3 SQL Injection lesson.
-- payload: `3SL99A'; UPDATE employees SET salary=100000 WHERE userid=37648;`. with the `'` i close the first select query, then with `;` I start a new query. ![img_4.png](img_4.png)
+- payload: `3SL99A'; UPDATE employees SET salary=100000 WHERE userid=37648;`. with the `'` i close the first select query, then with `;` I start a new query. ![img_4.png](imgs/img_4.png)
 - Q&A
 - Zeichnen Sie auf, wie das SQL-Statement aus B1 vor und nach dem Einschleusen des Payloads aussieht. Erklären Sie, warum die Authentifizierung dadurch umgangen wird.
 - I was able to get all employees by setting a tricky payload `' OR '1'='1`, here the `'` closes the first string, then `OR '1'='1` is always true. wich means that the query will return all employees, since the condition is always true.
@@ -38,12 +38,12 @@ Lernziele
 ### C) Cross-Site Scripting (XSS) (18%)
 #### C1 – Reflected XSS & DOM-based XSS
 ##### C1a – Try It! Reflected XSS
-- I had to test the input field, to check if they were vulnerable to XSS, I tried to inject a simple script `<script>alert('XSS')</script>` and it worked, the alert popped up. ![img_5.png](img_5.png)
+- I had to test the input field, to check if they were vulnerable to XSS, I tried to inject a simple script `<script>alert('XSS')</script>` and it worked, the alert popped up. ![img_5.png](imgs/img_5.png)
 ##### C1b – Identify potential for DOM-Based XSS
-- Now i had to find a potential for DOM-Based XSS, which was finding a test route that stayed in the app during production. ![img_6.png](img_6.png)
-- Thne I had to use that exploit, since the app was vulnerable to XSS, I could inject a script in the URL, which would be executed when the page was loaded. ![img_7.png](img_7.png) ![img_8.png](img_8.png)
+- Now i had to find a potential for DOM-Based XSS, which was finding a test route that stayed in the app during production. ![img_6.png](imgs/img_6.png)
+- Thne I had to use that exploit, since the app was vulnerable to XSS, I could inject a script in the URL, which would be executed when the page was loaded. ![img_7.png](imgs/img_7.png) ![img_8.png](imgs/img_8.png)
 #### C2 – Stored XSS
-- Here the first task was to paste a script in the input field for the post comments `<script>alert('Stored XSS')</script>`. ![img_9.png](img_9.png). The goal was to check if the script was called when the page was loaded. ![img_10.png](img_10.png)
+- Here the first task was to paste a script in the input field for the post comments `<script>alert('Stored XSS')</script>`. ![img_9.png](imgs/img_9.png). The goal was to check if the script was called when the page was loaded. ![img_10.png](imgs/img_10.png)
 - Q&A
 - Was ist der zentrale Unterschied zwischen Reflected XSS und Stored XSS hinsichtlich Persistenz und Reichweite? 
 - Reflected XSS is not persistent, it only affects the user who clicks on the malicious link, while Stored XSS is persistent, it affects all users who visit the page where the malicious script is stored.
@@ -56,8 +56,8 @@ Lernziele
 - Welche OWASP Top 10 Kategorie (2021) beschreibt XSS? Nennen Sie Nummer und Bezeichnung.
 - [A05:2025 Injection](https://owasp.org/Top10/2025/A05_2025-Injection/#:~:text=CWE%2D80%20Improper%20Neutralization%20of%20Script%2DRelated%20HTML%20Tags%20in%20a%20Web%20Page%20(Basic%20XSS)
 ### D) CSRF – Cross-Site Request Forgery (18%)
-- First of all I had to pay attention to the details, like if I clicked submit wich page it would show me, there I inspected the request and noted down request params. ![img_11.png](img_11.png) ![img_12.png](img_12.png)
-- Afterwards I had to adjust the html site with the payloads I noted. `see ./csrf.html` and it worked. ![img_13.png](img_13.png) ![img_14.png](img_14.png)
+- First of all I had to pay attention to the details, like if I clicked submit wich page it would show me, there I inspected the request and noted down request params. ![img_11.png](imgs/img_11.png) ![img_12.png](imgs/img_12.png)
+- Afterwards I had to adjust the html site with the payloads I noted. `see ./csrf.html` and it worked. ![img_13.png](imgs/img_13.png) ![img_14.png](imgs/img_14.png)
 - Q&A
 - Warum schickt der Browser den Session-Cookie mit, wenn die Anfrage von csrf-attack.html (einer lokalen Datei) kommt – obwohl das Opfer diese Seite nie bewusst besucht hat?
 - The browser automatically includes cookies associated with the target domain in requests made to that domain, regardless of where the request comes from.
@@ -69,12 +69,12 @@ Lernziele
 - [A05_2025-Injection](https://owasp.org/Top10/2025/A05_2025-Injection/) && [A02_2025-Security_Misconfiguration](https://owasp.org/Top10/2025/A02_2025-Security_Misconfiguration/)7
 ### E) Broken Access Control – IDOR (18%)
 - Now the main topic is unauthorized attacks, so you're authenticated, but you want to access data that you shouldn't be able to access.
-- first task was to login with `tom:cat` ![img_15.png](img_15.png)
+- first task was to login with `tom:cat` ![img_15.png](imgs/img_15.png)
 - second task was to find payloads/request infos that aren't shown but are sent from the server.
-- the third task was to get the profile infos trough a GET request. ![img_16.png](img_16.png)
+- the third task was to get the profile infos trough a GET request. ![img_16.png](imgs/img_16.png)
 - the 4th task had 2 tasks, 
-  - 1st was to fetch another users profile, i had to test the user ids until it worked. ![img_17.png](img_17.png)
-  - 2nd was to edit the user profile. ![img_18.png](img_18.png)
+  - 1st was to fetch another users profile, i had to test the user ids until it worked. ![img_17.png](imgs/img_17.png)
+  - 2nd was to edit the user profile. ![img_18.png](imgs/img_18.png)
 - Q&A
 - Warum reicht es nicht, eine Ressource einfach «nicht zu verlinken», um sie zu schützen? (Stichwort: Security through Obscurity)
 - Security through Obscurity is not a reliable because it relies on keeping the implementation details secret rather than implementing proper access controls. If an attacker discovers the hidden resource, they can access it without any restrictions. 
@@ -87,9 +87,9 @@ Lernziele
 - [A01_2025-Broken_Access_Control](https://owasp.org/Top10/2025/A01_2025-Broken_Access_Control/)
 ### F) Broken Authentication – JWT Tokens (18%)
 - Now the main topic is to analyze JWT tokens, and find out it's vulnerabilities.
-- 1st task was to decode a token, read it's info and cite the username present in the payload. ![img_19.png](img_19.png) ![img_20.png](img_20.png)
-- 2nd task was to alter the user role in the payload. I tried by just changing the payload, that didn't work so I had to change the algorithm in the token to none and it worked. ![img_21.png](img_21.png) ![img_22.png](img_22.png) ![img_23.png](img_23.png) ![img_24.png](img_24.png) ![img_25.png](img_25.png)
-- next was to analyze the code, wich was a bit difficult and time consuming, since I don't know how to search for java docs. but I managed to do it with the help of AI. ![img_26.png](img_26.png)
+- 1st task was to decode a token, read it's info and cite the username present in the payload. ![img_19.png](imgs/img_19.png) ![img_20.png](imgs/img_20.png)
+- 2nd task was to alter the user role in the payload. I tried by just changing the payload, that didn't work so I had to change the algorithm in the token to none and it worked. ![img_21.png](imgs/img_21.png) ![img_22.png](imgs/img_22.png) ![img_23.png](imgs/img_23.png) ![img_24.png](imgs/img_24.png) ![img_25.png](imgs/img_25.png)
+- next was to analyze the code, wich was a bit difficult and time consuming, since I don't know how to search for java docs. but I managed to do it with the help of AI. ![img_26.png](imgs/img_26.png)
 - Q&A
 - Warum ist es ein Sicherheitsproblem, wenn ein Server "alg":"none" akzeptiert?
 - because it allows an attacker to create a JWT with no signature, so without any verification, the server will accept it as valid.
